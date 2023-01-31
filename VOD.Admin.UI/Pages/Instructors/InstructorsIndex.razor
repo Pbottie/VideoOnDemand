@@ -1,0 +1,37 @@
+﻿<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Avatar</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var instructor in Model)
+        {
+            <tr>
+                <td>@instructor.Name</td>
+                <td>@instructor.Description</td>
+                <td>@instructor.Avatar</td>
+                <td>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-outline-primary me-1" @onclick="@(()=> OnClick.InvokeAsync(new ClickModel(PageType.Edit,instructor.Id)))">Edit</button>
+                        <button type="button" class="btn btn-outline-danger" @onclick="@(()=> OnClick.InvokeAsync(new ClickModel(PageType.Delete,instructor.Id)))">Delete</button>
+                    </div>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+
+
+
+@code {
+    [Parameter] public List<InstructorDTO> Model { get; set; } = new();
+    [Parameter] public EventCallback<ClickModel> OnClick { get; set; }
+}

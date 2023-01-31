@@ -1,0 +1,79 @@
+﻿@inject IAdminService AdminService
+
+<div class="d-xl-flex justify-content-center">
+    <EditForm Model="@Model" OnValidSubmit="OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
+        <h4>@Page Instructor</h4>
+        <DataAnnotationsValidator />
+        @if (@Page == PageType.Delete)
+        {
+            <div class="mb-2">
+                <InputText class="form-control" id="name" @bind-Value=Model.Name disabled placeholder="Name"></InputText>
+                <ValidationMessage For="@(()=>Model.Name)" />
+            </div>
+        }
+        else
+        {
+            <div class="mb-2">
+                <InputText class="form-control" id="name" @bind-Value=Model.Name placeholder="Name"></InputText>
+                <ValidationMessage For="@(()=>Model.Name)" />
+            </div>
+        }
+        @if (!(@Page == PageType.Delete))
+        {
+       
+              <div class="mb-2">
+                <InputText class="form-control" id="description" @bind-Value=Model.Description placeholder="Description"></InputText>
+                <ValidationMessage For="@(()=>Model.Description)" />
+            </div>
+              <div class="mb-2">
+                <InputText class="form-control" id="avatar" @bind-Value=Model.Avatar placeholder="Avatar"></InputText>
+                <ValidationMessage For="@(()=>Model.Avatar)" />
+            </div>
+        }
+
+        @if (Page == PageType.Delete)
+        {
+            <button type="submit" class="btn btn-danger">@Page</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-success">@Page</button>
+        }
+    </EditForm>
+</div>
+
+
+@code {
+    [Parameter] public InstructorDTO Model { get; set; } = new();
+    [Parameter] public string Page { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> OnChange { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+    }
+
+    async Task OnFormSubmit()
+    {
+        try
+        {
+            if (Page.Equals(PageType.Edit))
+                await AdminService.EditAsync<InstructorDTO>($"Instructor/{Model.Id}", Model);
+            else if (Page.Equals(PageType.Create))
+                await AdminService.CreateAsync<InstructorDTO>("Instructor", Model);
+            else if (Page.Equals(PageType.Delete))
+                await AdminService.DeleteAsync<InstructorDTO>($"Instructor/{Model.Id}");
+
+            await OnChange.InvokeAsync("");
+
+        }
+        catch (Exception)
+        {
+
+            await OnChange.InvokeAsync("Couldn't create/edit/delete the Instructor.");
+        }
+    }
+
+
+
+}

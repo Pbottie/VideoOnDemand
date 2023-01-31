@@ -1,0 +1,39 @@
+﻿<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Thumbnail</th>
+            <th>Url</th>
+            <th>Section Id</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var video in Model)
+        {
+           <tr>
+                <td>@video.Title</td>
+                <td>@video.Description</td>
+                <td>@video.Duration</td>
+                <td>@video.Thumbnail</td>
+                <td>@video.Url</td>
+                <td>@video.SectionId</td>
+                <td>
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-outline-primary me-1" @onclick="@(()=> OnClick.InvokeAsync(new ClickModel(PageType.Edit,video.Id)))">Edit</button>
+                        <button type="button" class="btn btn-outline-danger" @onclick="@(()=> OnClick.InvokeAsync(new ClickModel(PageType.Delete,video.Id)))">Delete</button>
+                    </div>
+                </td>
+
+            </tr> 
+        }
+    </tbody>
+</table>
+
+
+
+@code {
+    [Parameter] public List<VideoDTO> Model { get; set; } = new();
+    [Parameter] public EventCallback<ClickModel> OnClick { get; set; }
+}

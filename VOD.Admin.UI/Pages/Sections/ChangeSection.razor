@@ -1,0 +1,84 @@
+﻿@inject IAdminService AdminService
+
+<div class="d-xl-flex justify-content-center">
+    <EditForm Model="@Model" OnValidSubmit="OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
+        <h4>@Page Section</h4>
+        <DataAnnotationsValidator />
+        @if (@Page == PageType.Delete)
+        {
+            <div class="mb-2">
+                <InputText class="form-control" id="title" @bind-Value=Model.Title disabled placeholder="Title"></InputText>
+                <ValidationMessage For="@(()=>Model.Title)" />
+            </div>
+        }
+        else
+        {
+            <div class="mb-2">
+                <InputText class="form-control" id="title" @bind-Value=Model.Title placeholder="Title"></InputText>
+                <ValidationMessage For="@(()=>Model.Title)" />
+            </div>
+        }
+        @if (!(@Page == PageType.Delete))
+        {
+
+            <div class="mb-2">
+                <InputSelect class="form-control" @bind-Value="Model.CourseId">
+                    <option value="">Course...</option>
+                    @foreach (var course in Courses)
+                    {
+                        <option value="@course.Id">@course.Title</option>
+                    }
+
+                </InputSelect>
+                <ValidationMessage For="@(()=>Model.CourseId)" />
+            </div>
+        }
+
+        @if (Page == PageType.Delete)
+        {
+            <button type="submit" class="btn btn-danger">@Page</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-success">@Page</button>
+        }
+    </EditForm>
+</div>
+
+
+@code {
+    [Parameter] public SectionDTO Model { get; set; } = new();
+    [Parameter] public string Page { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> OnChange { get; set; }
+    public List<CourseDTO> Courses { get; set; } = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        Courses = await AdminService.GetAsync<CourseDTO>($"course");
+    }
+
+    private async Task OnFormSubmit()
+    {
+        try
+        {
+            if (Page.Equals(PageType.Edit))
+                await AdminService.EditAsync<SectionDTO>($"Section/{Model.Id}", Model);
+            else if (Page.Equals(PageType.Create))
+                await AdminService.CreateAsync<SectionDTO>("Section", Model);
+            else if (Page.Equals(PageType.Delete))
+                await AdminService.DeleteAsync<SectionDTO>($"Section/{Model.Id}");
+
+            await OnChange.InvokeAsync("");
+
+        }
+        catch (Exception)
+        {
+
+            await OnChange.InvokeAsync("Couldn't create/edit/delete the Section.");
+        }
+    }
+
+
+
+}

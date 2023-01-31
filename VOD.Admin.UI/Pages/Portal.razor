@@ -1,0 +1,26 @@
+﻿@page "/{Route}"
+<h1>@Route</h1>
+
+@code {
+    [Parameter] public string Route { get; set; } = "";
+}
+
+@if (Route.Equals(Routes.Courses))
+{
+<CoursesPortal />
+}
+
+@if (Route.Equals(Routes.Sections))
+{
+<SectionsPortal />
+}
+
+@if (Route.Equals(Routes.Videos))
+{
+<VideosPortal />
+}
+
+@if (Route.Equals(Routes.Instructors))
+{
+<InstructorsPortal />
+}

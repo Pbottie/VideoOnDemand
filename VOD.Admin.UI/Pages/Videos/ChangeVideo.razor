@@ -1,0 +1,102 @@
+﻿@inject IAdminService AdminService
+
+<div class="d-xl-flex justify-content-center">
+    <EditForm Model="@Model" OnValidSubmit="OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
+        <h4>@Page Section</h4>
+        <DataAnnotationsValidator />
+        @if (@Page == PageType.Delete)
+        {
+            <div class="mb-2">
+                <InputText class="form-control" id="title" @bind-Value=Model.Title disabled placeholder="Title"></InputText>
+                <ValidationMessage For="@(()=>Model.Title)" />
+            </div>
+        }
+        else
+        {
+            <div class="mb-2">
+                <InputText class="form-control" id="title" @bind-Value=Model.Title placeholder="Title"></InputText>
+                <ValidationMessage For="@(()=>Model.Title)" />
+            </div>
+        }
+        @if (!(@Page == PageType.Delete))
+        {
+            <div class="mb-2">
+                <InputText class="form-control" id="description" @bind-Value=Model.Description placeholder="Description"></InputText>
+                <ValidationMessage For="@(()=>Model.Description)" />
+            </div>
+
+            <div class="mb-2">
+                <InputNumber  min ="0" class="form-control" id="duration" @bind-Value=Model.Duration placeholder="Duration"></InputNumber>
+                <ValidationMessage For="@(()=>Model.Duration)" />
+            </div>
+            <div class="mb-2">
+                <InputText class="form-control" id="thumbnail" @bind-Value=Model.Thumbnail placeholder="Thumbnail"></InputText>
+                <ValidationMessage For="@(()=>Model.Thumbnail)" />
+            </div>
+            <div class="mb-2">
+                <InputText class="form-control" id="url" @bind-Value=Model.Url placeholder="Url"></InputText>
+                <ValidationMessage For="@(()=>Model.Url)" />
+            </div>
+
+
+            <div class="mb-2">
+                <InputSelect class="form-control" @bind-Value="Model.SectionId">
+                    <option value="">Section...</option>
+                    @foreach (var videoSection in SectionList)
+                    {
+                        <option value="@videoSection.Id">@videoSection.Title</option>
+                    }
+
+                </InputSelect>
+                <ValidationMessage For="@(()=>Model.SectionId)" />
+            </div>
+        }
+
+        @if (Page == PageType.Delete)
+        {
+            <button type="submit" class="btn btn-danger">@Page</button>
+        }
+        else
+        {
+            <button type="submit" class="btn btn-success">@Page</button>
+        }
+    </EditForm>
+</div>
+
+
+@code {
+    [Parameter] public VideoDTO Model { get; set; } = new();
+    [Parameter] public string Page { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> OnChange { get; set; }
+    public List<SectionDTO> SectionList { get; set; } = new();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        SectionList = await AdminService.GetAsync<SectionDTO>($"Section");
+    }
+
+    private async Task OnFormSubmit()
+    {
+        try
+        {
+            if (Page.Equals(PageType.Edit))
+                await AdminService.EditAsync<VideoDTO>($"Video/{Model.Id}", Model);
+            else if (Page.Equals(PageType.Create))
+                await AdminService.CreateAsync<VideoDTO>("Video", Model);
+            else if (Page.Equals(PageType.Delete))
+                await AdminService.DeleteAsync<VideoDTO>($"Video/{Model.Id}");
+
+            await OnChange.InvokeAsync("");
+
+        }
+        catch (Exception)
+        {
+
+            await OnChange.InvokeAsync("Couldn't create/edit/delete the Video.");
+        }
+    }
+
+
+
+}
