@@ -1,9 +1,26 @@
 ﻿@page "/"
+@inject IMembershipService membershipService
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Dashboard member</PageTitle>
 
-<h1>Hello, world!</h1>
+<h1 class="d-flex justify-content-center">Dashboard</h1>
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+<div class="d-flex flex-wrap justify-content-center">
+
+    @foreach (var course in Courses)
+    {        
+        <CourseCardPartial Course="@course" />
+    }
+
+</div>
+
+@code {
+    public List<CourseDTO> Courses { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Courses = await membershipService.GetCoursesAsync();
+    }
+}

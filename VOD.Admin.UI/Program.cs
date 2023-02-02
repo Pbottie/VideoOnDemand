@@ -1,5 +1,3 @@
-using VOD.Common.Services;
-
 namespace VOD.Admin.UI;
 
 public class Program

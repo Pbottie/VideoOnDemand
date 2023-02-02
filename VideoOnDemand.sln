@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOD.Membership.Database", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOD.Membership.API", "VOD.Membership.API\VOD.Membership.API.csproj", "{61CEE038-E8A0-4D1E-B95B-62399BBDBCE9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VOD.Membership.UI", "VOD.Membership.UI\VOD.Membership.UI.csproj", "{15169BD0-77C5-43BD-9BF5-3B6ED9C3994A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOD.Membership.UI", "VOD.Membership.UI\VOD.Membership.UI.csproj", "{15169BD0-77C5-43BD-9BF5-3B6ED9C3994A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
