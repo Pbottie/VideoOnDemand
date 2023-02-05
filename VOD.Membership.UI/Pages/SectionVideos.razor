@@ -1,0 +1,21 @@
+﻿@foreach (var video in Videos)
+{
+    <a href="Video/@video.Id">
+        <div class="d-flex border border-secondary mb-1" style="height:130px">
+            <img src="@video.Thumbnail" />
+            <div class="d-flex flex-column ms-1 p-4">
+                <h5>@video.Title</h5>
+                <h5 class="text-nowrap">@video.Description</h5>
+                <p>
+                    <i class="oi oi-clock"></i>
+                    @video.Duration minutes
+                </p>
+            </div>
+        </div>
+    </a>
+}
+
+
+@code {
+    [Parameter] public List<VideoDTO> Videos { get; set; } = new();
+}

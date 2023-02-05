@@ -1,0 +1,27 @@
+﻿@page "/video/{Id:int}"
+@inject IMembershipService membershipService
+
+<a class="btn btn-primary rounded-0 mb-1" href="/course/@Model.CourseId">
+    <i class="oi oi-arrow-left" />
+    <div> Back</div>
+</a>
+
+@if (Model.Url is not null)
+{
+    <div class="video-player">
+        <iframe src="@Model.Url" frameborder="0" allow="accelerometer; autoplay;
+        encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+}
+
+
+@code {
+
+    [Parameter] public int Id { get; set; }
+    public VideoDTO Model { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Model = await membershipService.GetVideoAsync(Id);
+    }
+}

@@ -8,6 +8,11 @@
     <div> Back to Dashboard</div>
 </a>
 
+<Marquee Course="@Model" />
+<div class="d-flex flex-wrap justify-content-center">
+    <Sections Course="@Model" />
+    <InstructorBio Instructor="@Model.Instructor" />
+</div>
 
 @code {
     [Parameter] public int? Id { get; set; }
