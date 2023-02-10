@@ -1,0 +1,21 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page">
+
+    <main>
+        <div class="top-row px-4">
+            <LoginRegister />
+            <NavLink class="nav-link" href="sign-up">
+                <button id="paid" class="btn btn-success">
+                    <i class="oi oi-account-login"></i>
+                    <span>
+                        Paid
+                    </span>
+                </button>
+            </NavLink>
+        </div>
+        <article class="content px-4 mx-auto" style="max-width:1920px">
+            @Body
+        </article>
+    </main>
+</div>

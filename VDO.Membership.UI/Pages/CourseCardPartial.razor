@@ -1,0 +1,16 @@
+﻿<div style="max-width:350px">
+    <div class="card rounded-0 m-1" style="width: 18rem; ">
+        <img src="@Course.ImageUrl" class="card-img-top rounded" alt="Image for Course @Course.Id">
+        <div class="card-body">
+            <h5 class="card-title">@Course.Title</h5>
+            <p class="card-text">@Course.Description</p>
+            <a href="Course/@Course.Id" class="btn btn-primary rounded">View Course</a>
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    [Parameter] public CourseDTO Course { get; set; } = new();
+}

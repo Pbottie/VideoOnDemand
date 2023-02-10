@@ -1,0 +1,8 @@
+﻿<div class="marquee" style="background-image:url('@Course.MarqueeImageUrl');">
+    <img src="@Course.ImageUrl" />
+</div>
+
+
+@code {
+    [Parameter] public CourseDTO Course { get; set; } = new();
+}

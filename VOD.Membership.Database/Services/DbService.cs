@@ -10,7 +10,6 @@ public class DbService : IDbService
 
     }
 
-
     public async Task<List<TDto>> GetAsync<TEntity, TDto>() where TEntity : class, IEntity where TDto : class
     {            
         var entities = await _db.Set<TEntity>().ToListAsync();

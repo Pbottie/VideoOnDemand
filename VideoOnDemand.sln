@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOD.Membership.Database", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOD.Membership.API", "VOD.Membership.API\VOD.Membership.API.csproj", "{61CEE038-E8A0-4D1E-B95B-62399BBDBCE9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOD.Membership.UI", "VOD.Membership.UI\VOD.Membership.UI.csproj", "{15169BD0-77C5-43BD-9BF5-3B6ED9C3994A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VDO.Membership.UI", "VDO.Membership.UI\VDO.Membership.UI.csproj", "{A46BAC15-964B-4A0D-97A8-1EFB31C526EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOD.Users.Database", "VOD.Users.Database\VOD.Users.Database.csproj", "{9F8A3CC6-2342-443D-A234-19CECF90C63D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VOD.Users.API", "VOD.Users.API\VOD.Users.API.csproj", "{013522B9-1EEA-4990-B51F-037F328BC8D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +39,18 @@ Global
 		{61CEE038-E8A0-4D1E-B95B-62399BBDBCE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61CEE038-E8A0-4D1E-B95B-62399BBDBCE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61CEE038-E8A0-4D1E-B95B-62399BBDBCE9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15169BD0-77C5-43BD-9BF5-3B6ED9C3994A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15169BD0-77C5-43BD-9BF5-3B6ED9C3994A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15169BD0-77C5-43BD-9BF5-3B6ED9C3994A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15169BD0-77C5-43BD-9BF5-3B6ED9C3994A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A46BAC15-964B-4A0D-97A8-1EFB31C526EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A46BAC15-964B-4A0D-97A8-1EFB31C526EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A46BAC15-964B-4A0D-97A8-1EFB31C526EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A46BAC15-964B-4A0D-97A8-1EFB31C526EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F8A3CC6-2342-443D-A234-19CECF90C63D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F8A3CC6-2342-443D-A234-19CECF90C63D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F8A3CC6-2342-443D-A234-19CECF90C63D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F8A3CC6-2342-443D-A234-19CECF90C63D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{013522B9-1EEA-4990-B51F-037F328BC8D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{013522B9-1EEA-4990-B51F-037F328BC8D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{013522B9-1EEA-4990-B51F-037F328BC8D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{013522B9-1EEA-4990-B51F-037F328BC8D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

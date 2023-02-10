@@ -1,0 +1,65 @@
+﻿@page "/register"
+@inject NavigationManager NavManager
+@inject UserHttpClient Http
+
+<h3 style="text-align:center;">Create an Account</h3>
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="alert alert-danger">
+        <p>@errorMessage</p>
+    </div>
+}
+
+<div class="d-xl-flex justify-content-center">
+    <EditForm Model="@model" OnValidSubmit="CreateUser" class="mb-5 border border-1 border-secondary p-2 w-25">
+        <DataAnnotationsValidator />
+
+        <div class="mb-2">
+            <h5>Email address</h5>
+            <InputText class="form-control" id="email" @bind-Value=model.Email placeholder="Email"></InputText>
+            <ValidationMessage For="@(()=>model.Email)" />
+        </div>
+
+        <div class="mb-2">
+            <h5>Password</h5>
+            <InputText type="password" class="form-control" id="description" @bind-Value=model.Password placeholder="Password"></InputText>
+            <ValidationMessage For="@(()=>model.Password)" />
+        </div>
+        <div class="mb-2">
+            <h5>Confirm Password</h5>
+            <InputText type="password" class="form-control" id="image-url" @bind-Value=model.ComfirmPassword placeholder="ConfirmPassword"></InputText>
+            <ValidationMessage For="@(()=>model.ComfirmPassword)" />
+        </div>
+
+        <div class="mb-2">
+            <label>
+                <InputCheckbox @bind-Value="model.IsCustomer" /> Customer (faking a paid customer)
+            </label>
+        </div>
+
+        <button type="submit" class="btn btn-success">Submit</button>
+    </EditForm>
+</div>
+
+
+
+
+@code {
+    CreateUserModel model = new();
+    public string errorMessage { get; set; } = String.Empty;
+
+    private async Task CreateUser()
+    {
+        try
+        {
+            errorMessage = "";
+            await Http.CreateUser(model);
+            errorMessage = "User created";
+        }
+        catch (Exception)
+        {
+            errorMessage = "Failed to create user";
+        }
+    }
+
+}

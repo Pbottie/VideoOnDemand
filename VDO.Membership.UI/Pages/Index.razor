@@ -1,0 +1,26 @@
+﻿@page "/"
+@inject IMembershipService membershipService
+
+<PageTitle>Dashboard member</PageTitle>
+
+<h1 class="d-flex justify-content-center">Dashboard</h1>
+
+
+
+<div class="d-flex flex-wrap justify-content-center">
+
+    @foreach (var course in Courses)
+    {        
+        <CourseCardPartial Course="@course" />
+    }
+
+</div>
+
+@code {
+    public List<CourseDTO> Courses { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Courses = await membershipService.GetCoursesAsync();
+    }
+}
