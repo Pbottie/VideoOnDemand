@@ -16,6 +16,6 @@ public interface IDbService
     //bool Delete<TReferenceEntity, TDto>(TDto dto) where TReferenceEntity : class where TDto : class;
 
     void Include<TEntity>() where TEntity :class, IEntity;
-
+    string GetURI<TEntity>(TEntity entity) where TEntity : class, IEntity;
 }
 

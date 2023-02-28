@@ -13,4 +13,10 @@ public static class UserPolicy
     public static string NotCustomer => "NotRegistered";
 }
 
+public static class AuthConstants
+{
+    public static string TokenName => "AuthToken";
+    public static string AuthenticationType => "jwtAuthType";
+
+}
 

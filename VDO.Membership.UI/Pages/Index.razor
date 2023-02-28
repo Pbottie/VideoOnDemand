@@ -6,15 +6,23 @@
 <h1 class="d-flex justify-content-center">Dashboard</h1>
 
 
+<AuthorizeView Policy="@UserPolicy.Registered">
+    <Authorized>
+        <h4 class="text-center">Welcome @context.User.FindFirst("sub")?.Value!</h4>
+        <div class="d-flex flex-wrap justify-content-center">
 
-<div class="d-flex flex-wrap justify-content-center">
+            @foreach (var course in Courses)
+            {
+                <CourseCardPartial Course="@course" />
+            }
 
-    @foreach (var course in Courses)
-    {        
-        <CourseCardPartial Course="@course" />
-    }
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <h4 class="text-center">Welcome, register for free or paid courses!</h4>
 
-</div>
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     public List<CourseDTO> Courses { get; set; } = new();

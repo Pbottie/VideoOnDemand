@@ -70,12 +70,12 @@ public class CourseController : ControllerBase
             if (dto is null)
                 return Results.BadRequest();
 
-            var course = _db.AddAsync<Course, CourseCreateDTO>(dto);
+            var course = await _db.AddAsync<Course, CourseCreateDTO>(dto);
 
             var success = await _db.SaveChangesAsync();
 
             if (success)
-                return Results.Created($"/Courses/{course.Result.Id}", course);
+                return Results.Created(_db.GetURI<Course>(course), course);
             else
                 return Results.BadRequest();
 

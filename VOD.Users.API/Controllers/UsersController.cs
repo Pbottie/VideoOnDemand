@@ -30,13 +30,12 @@ public class UsersController : ControllerBase
 
             VODUser user = new()
             {
-                Id = Guid.NewGuid().ToString(),
                 Email = email,
                 EmailConfirmed = true,
-                UserName = email
+                UserName = email                
             };
 
-            var result = await _userManager.CreateAsync(user);
+            var result = await _userManager.CreateAsync(user, password);
 
             if (result.Succeeded) return Results.Ok();
         }

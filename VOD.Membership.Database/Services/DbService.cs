@@ -11,13 +11,13 @@ public class DbService : IDbService
     }
 
     public async Task<List<TDto>> GetAsync<TEntity, TDto>() where TEntity : class, IEntity where TDto : class
-    {            
+    {
         var entities = await _db.Set<TEntity>().ToListAsync();
         return _mapper.Map<List<TDto>>(entities);
-    }  
-    
+    }
+
     public async Task<List<TDto>> GetAsync<TEntity, TDto>(Expression<Func<TEntity, bool>> expression) where TEntity : class, IEntity where TDto : class
-    {            
+    {
         var entities = await _db.Set<TEntity>().Where(expression).ToListAsync();
         return _mapper.Map<List<TDto>>(entities);
     }
@@ -63,7 +63,7 @@ public class DbService : IDbService
         return true;
     }
 
-    public void Include<TEntity>() where TEntity :class, IEntity
+    public void Include<TEntity>() where TEntity : class, IEntity
     {
         var propertyNames =
         _db.Model.FindEntityType(typeof(TEntity))?.GetNavigations().Select(e =>
@@ -75,6 +75,15 @@ public class DbService : IDbService
             foreach (var name in propertyNames)
                 _db.Set<TEntity>().Include(name).Load();
     }
+
+
+    //TODO USE GetURI
+    public string GetURI<TEntity>(TEntity entity) where TEntity : class, IEntity
+    {
+        return $"{typeof(TEntity).Name.ToLower()}s/{entity.Id}";
+    }
+
+
 
     //public bool Delete<TReferenceEntity, TDto>(TDto dto) where TReferenceEntity : class where TDto : class
     //{

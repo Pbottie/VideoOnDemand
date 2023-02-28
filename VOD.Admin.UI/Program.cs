@@ -7,8 +7,14 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddHttpClient<MembershipHttpClient>(client =>
 client.BaseAddress = new Uri("https://localhost:6001/api/"));
 
-builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddHttpClient<AuthenticationHttpClient>(client =>
+client.BaseAddress = new Uri("https://localhost:8001/api/"));
 
+builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IStorageService, SessionStorageService>();
+builder.Services.AddScoped<AuthenticationService>();
+builder.Services.AddScoped<AuthenticationStateProvider>(provider =>
+provider.GetRequiredService<AuthenticationService>());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,8 +1,4 @@
-﻿
-
-using VOD.Common.DTOs;
-
-namespace VOD.Common.HttpClients;
+﻿namespace VOD.Common.HttpClients;
 
 public class UserHttpClient
 {

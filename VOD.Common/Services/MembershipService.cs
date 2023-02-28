@@ -3,10 +3,12 @@
 public class MembershipService : IMembershipService
 {
     protected readonly MembershipHttpClient _http;
+    protected readonly IStorageService _storage;
 
-    public MembershipService(MembershipHttpClient httpClient)
+    public MembershipService(MembershipHttpClient httpClient, IStorageService storageService)
     {
         _http = httpClient;
+        _storage = storageService;
     }
 
 
@@ -16,8 +18,10 @@ public class MembershipService : IMembershipService
     {
         try
         {
+            var token = await _storage.GetAsync(AuthConstants.TokenName);
 
-            bool freeOnly = false;
+            bool freeOnly = JwtParser.ParseIsNotInRoleFromPayload(token, UserRole.Customer);
+            _http.AddBearerToken(token);
 
             using HttpResponseMessage response = await _http.Client.GetAsync($"course?freeOnly={freeOnly}");
             response.EnsureSuccessStatusCode();

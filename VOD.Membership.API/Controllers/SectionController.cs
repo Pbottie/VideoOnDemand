@@ -12,7 +12,7 @@ public class SectionController : ControllerBase
     {
         try
         {
-            _db.Include<Section>();
+            _db.Include<Video>();
 
             var sections = await _db.GetAsync<Section, SectionDTO>();
 
@@ -32,8 +32,8 @@ public class SectionController : ControllerBase
         try
         {
             //_db.Include<Instructor>();
-            _db.Include<Section>();
-            //_db.Include<Video>();
+            //_db.Include<Section>();
+            _db.Include<Video>();
 
             var section = await _db.SingleAsync<Section, SectionDTO>(s => s.Id.Equals(id));
             return Results.Ok(section);
@@ -86,7 +86,7 @@ public class SectionController : ControllerBase
             if (!dto.Id.Equals(id))
                 return Results.BadRequest("Not same Id");
 
-                var exists = await _db.AnyAsync<Course>(c => c.Id.Equals(dto.CourseId));
+            var exists = await _db.AnyAsync<Course>(c => c.Id.Equals(dto.CourseId));
             if (!exists)
                 return Results.NotFound();
 
