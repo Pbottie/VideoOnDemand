@@ -1,0 +1,51 @@
+﻿@page "/sign-up"
+@inject UserHttpClient HttpClient
+@inject AuthenticationService AuthService
+
+
+<h3>SignUp</h3>
+<h4>Payment processing on this page (not implemented)</h4>
+@if (!string.IsNullOrWhiteSpace(errorMessage))
+{
+    <div class="alert alert-success">
+        <p>@errorMessage</p>
+    </div>
+}
+<EditForm Model="@signInModel" OnValidSubmit="@PayingCustomer">
+    <div class="mb-2">
+        <label>
+            <InputCheckbox @bind-Value="signInModel.IsCustomer" /> Customer (faking a paid customer)
+        </label>
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+</EditForm>
+
+@code {
+    public SignInModel signInModel = new SignInModel();
+    public string errorMessage = string.Empty;
+
+
+    public async Task PayingCustomer()
+    {
+        try
+        {
+            var user = await AuthService.GetUserFromToken();
+            if (user is null || !signInModel.IsCustomer || string.IsNullOrWhiteSpace(user.Email))
+            {
+                errorMessage = "Payment failed. Try again later.";
+                return;
+            }
+
+            var customer = new PaidCustomerDTO(user.Email);
+            await HttpClient.PayingCustomer(customer);
+
+            errorMessage = "Log out and Log In again.";
+        }
+        catch (Exception ex)
+        {
+
+            errorMessage = ex.Message;
+        }
+
+    }
+}

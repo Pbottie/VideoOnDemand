@@ -1,15 +1,18 @@
 ﻿<div class="flex-fill">
-    @foreach (var sect in Course.Sections)
+    @if (Course.Sections != null)
     {
-        <div>
-            @sect.Title
-        </div>
-        <div>
-            @if (sect.Videos != null && sect.Videos.Count > 0)
-            {
-                <SectionVideos Videos="@sect.Videos" />
-            }
-        </div>
+        @foreach (var sect in Course.Sections)
+        {
+            <div>
+                @sect.Title
+            </div>
+            <div>
+                @if (sect.Videos != null && sect.Videos.Count > 0)
+                {
+                    <SectionVideos Videos="@sect.Videos" />
+                }
+            </div>
+        }
     }
 </div>
 @code {
